@@ -1,0 +1,13 @@
+Leave Application System
+!!IMPORTANT!!
+
+1) In order to use the system, you need to create the database first. I already put the SQL file in the database folder. You can go to phpMyAdmin to import it.
+
+2) In the initial stage of the system, there is no employee record, so you cannot login as an employee. You need to login as a manager, and the email and password of the manager are as below:
+
+Email: manager@company.com
+Password: managerPassword (You cannot view the plaintext format in the phpMyAdmin because I already encrypted it)
+
+3) When a new employee is added by the manager, his/her password is the same as his/her email (I don't want the manager to set the password for the new employees). Since this is insecure, a new employee is required to change his/her password first to enter the homepage of the system (when he/she login for the first time); otherwise, they cannot use the system.
+
+4) The new password entered by the new employee should not be the same as his/her email. The system will reject it if they are the same, so the new employee still cannot enter the homepage (even if they change the URL), and they are still requested to change the password during the next login.
