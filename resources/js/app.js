@@ -16,7 +16,7 @@ createInertiaApp({
             .use(ElementPlus)
             .use(Toast, {
                 position: POSITION.TOP_CENTER,
-                timeout: 2500,
+                timeout: 3500,
                 newestOnTop: true,
             })
             .mount(el)
