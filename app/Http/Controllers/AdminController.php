@@ -4,17 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Inertia\Inertia;
+use App\Models\Leave;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class AdminController extends Controller
 {
   public function index() {
-    return Inertia::render('Admin/Home');
+    $leaves = Leave::with('user:id,name,email')->paginate(5);
+    return Inertia::render('Admin/Home', ['leaves' => $leaves]);
   }
 
   public function users() {
-    $users = User::where('role', 'user')->paginate(5);
+    $users = User::select("id", 'name', 'gender', 'email', 'role', 'contactNo', 'department', 'first_time')->where('role', 'user')->paginate(5);
     return Inertia::render('Admin/Users', ['users' => $users]);
   }
 
@@ -41,24 +43,14 @@ class AdminController extends Controller
   }
 
   public function show_user(User $user) {
+    $total_pending_leaves = Leave::where([
+        ['user_id', '=', $user->id],
+        ['status', '=', 'Pending']
+    ])->count();
+
+    $user['total_pending_leaves'] = $total_pending_leaves;
+
     return Inertia::render('Admin/ShowUser', ['user' => $user]);
-  }
-
-  public function edit_user(User $user) {
-    return Inertia::render('Admin/EditUser', ['user' => $user]);
-  }
-
-  public function update_user(Request $request, User $user) {
-    $validatedAttr = $request->validate([
-      'name' => ['required', 'max:50'],
-      'gender' => ['required', Rule::in(['male', 'female'])],
-      'contactNo' => ['required', 'max:50'],
-      'department' => ['required', Rule::in(['IT', 'Marketing', 'Sales', 'Accounting', 'Administration', 'Customer Service', 'HR'])]
-    ]);
-
-    $user->update($validatedAttr);
-
-    return Inertia::location(route('admin.users.show', ['user' => $user]));
   }
 
   public function destroy_user(User $user) {

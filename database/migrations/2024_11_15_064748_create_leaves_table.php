@@ -15,9 +15,10 @@ return new class extends Migration
         Schema::create('leaves', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
-            $table->date('leave_date');
-            $table->string('leave_type');
-            $table->string('status');
+            $table->date('date');
+            $table->string('type');
+            $table->text('reason')->nullable();
+            $table->string('status')->default('Pending');
             $table->timestamps();
         });
     }

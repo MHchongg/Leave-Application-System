@@ -17,9 +17,9 @@
     "dependencies": {
         "@inertiajs/vue3": "^1.2.0",
         "@vitejs/plugin-vue": "^5.2.0",
+        "dayjs": "^1.11.13",
         "element-plus": "^2.8.7",
         "vue": "^3.5.12",
-        "vue-spinner": "^1.0.4",
         "vue-toastification": "^2.0.0-rc.5"
     }
 }

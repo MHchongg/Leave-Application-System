@@ -35,7 +35,7 @@ const onSubmit = async () => {
                     <el-alert v-if="form.errors.email" :title="form.errors.email" type="error" :closable="false" />
                 </el-form-item>
                 <el-form-item label="Password">
-                    <el-input v-model="form.password" type="password" autocomplete="off" />
+                    <el-input v-model="form.password" type="password" autocomplete="off" show-password />
                     <el-alert v-if="form.errors.password" :title="form.errors.password" type="error" :closable="false" />
                 </el-form-item>
                 <el-form-item>

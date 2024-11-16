@@ -1,12 +1,13 @@
 <script setup>
 import Layout from '../Layout.vue';
 import { useToast } from 'vue-toastification';
-import { useForm } from '@inertiajs/vue3';
+import { useForm, usePage } from '@inertiajs/vue3';
+import { reactive } from 'vue';
 
-const { user } = defineProps(['user'])
+const page = usePage()
+const user = reactive(page.props.auth.user)
 const toast = useToast()
 
-// do not use same name with ref
 const form = useForm({
     name: user.name,
     gender: user.gender,
@@ -23,7 +24,7 @@ const resetForm = () => {
 
 const onSubmit = async () => {
     try {
-        await form.put(`/api/admin/users/${user.id}`)
+        await form.put(`/api/profile/${user.id}`)
     } catch (error) {
         console.error(error)
         toast.error(error.message)

@@ -16,7 +16,7 @@ class RoleMiddleware
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
         if (!$request->user() || $request->user()->role !== $roles[0]) {
-            return redirect()->route('forbidden');
+            abort(403);
         }
 
         return $next($request);
