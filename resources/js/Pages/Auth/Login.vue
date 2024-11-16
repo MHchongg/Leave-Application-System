@@ -1,5 +1,8 @@
 <script setup>
 import { useForm } from '@inertiajs/vue3';
+import { useToast } from 'vue-toastification';
+
+const toast = useToast()
 
 const form = useForm({
   email: '',
@@ -9,6 +12,15 @@ const form = useForm({
 const resetForm = () => {
     form.email = ''
     form.password = ''
+}
+
+const onSubmit = async () => {
+    try {
+        await form.post('/api/login')
+    } catch (error) {
+        console.error(error)
+        toast.error(error.message)
+    }
 }
 </script>
 
@@ -27,7 +39,7 @@ const resetForm = () => {
                     <el-alert v-if="form.errors.password" :title="form.errors.password" type="error" :closable="false" />
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="form.post('/api/login')">Login</el-button>
+                    <el-button type="primary" @click="onSubmit">Login</el-button>
                     <el-button @click="resetForm">Clear</el-button>
                 </el-form-item>
             </el-form>
