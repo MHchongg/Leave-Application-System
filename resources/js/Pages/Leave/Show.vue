@@ -65,7 +65,7 @@ defineProps(['leave'])
                         Applied Date: {{ leave.created_at.split("T")[0] }}
                     </p>
 
-                    <p v-if="leave.reason">
+                    <div v-if="leave.reason">
                         <p>Reason:</p>
                         <el-input 
                             v-model="leave.reason"
@@ -73,7 +73,7 @@ defineProps(['leave'])
                             type="textarea"
                             disabled
                         />
-                    </p>
+                    </div>
 
                     <p>
                         Status:

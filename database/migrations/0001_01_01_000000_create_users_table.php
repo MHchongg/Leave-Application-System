@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -40,6 +41,19 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
+
+        DB::table('users')->insert(
+            array(
+                'name' => 'Admin',
+                'gender' => 'male',
+                'email' => 'admin@gmail.com',
+                'role' => 'admin',
+                'contactNo' => '0123456789',
+                'department' => 'Administration',
+                'first_time' => false,
+                'password' => '$2y$12$6b3W3lstWwFvczOsEuOS6e/Mw3KRU1bX3mHBCzUtUKK52/WSguIsy'
+            )
+        );
     }
 
     /**
