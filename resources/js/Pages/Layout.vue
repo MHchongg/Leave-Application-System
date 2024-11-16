@@ -1,11 +1,11 @@
 <script setup>
-import { ArrowDownBold } from '@element-plus/icons-vue'
 import { Link } from "@inertiajs/vue3"
 import { usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 
 const page = usePage()
 const user = computed(() => page.props.auth.user)
+const avatar_name = computed(() => page.props.auth.user.name.substring(0, 1))
 </script>
 
 <template>
@@ -14,21 +14,27 @@ const user = computed(() => page.props.auth.user)
       <el-header class="text-right text-xs flex justify-between items-center">
         <h1 class="font-bold text-xl">Leave Application System</h1>
         <div class="w-12">
-          <el-dropdown class="w-full">
-            <div class="flex justify-between items-center w-full">
-              <span>{{ user.name }}</span>
-              <el-icon><ArrowDownBold /></el-icon>
+          <el-dropdown placement="top-start">
+            <div>
+              <el-avatar>
+                {{ avatar_name }}
+              </el-avatar>
             </div>
             <template #dropdown>
               <el-dropdown-menu>
                 <el-dropdown-item>
-                  <el-link href="/">
+                  <el-link :href="user.role === 'admin' ? '/admin/home' : '/user/home'">
                     Home
                   </el-link>
                 </el-dropdown-item>
-                <el-dropdown-item>
-                  <el-link href="/profile" v-if="user.role === 'user'">
+                <el-dropdown-item v-if="user.role === 'user'">
+                  <el-link href="/profile">
                     Profile
+                  </el-link>
+                </el-dropdown-item>
+                <el-dropdown-item v-if="user.role === 'admin'">
+                  <el-link href="/admin/users">
+                    Users
                   </el-link>
                 </el-dropdown-item>
                 <el-dropdown-item>
@@ -57,6 +63,10 @@ const user = computed(() => page.props.auth.user)
 .layout-container .el-header {
   position: relative;
   background-color: white;
+}
+
+.layout-container .el-avatar {
+  background-color: skyblue;
 }
 
 .layout-container .el-menu {

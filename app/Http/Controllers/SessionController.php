@@ -40,4 +40,8 @@ class SessionController extends Controller
 
         return Inertia::location(route('login'));
     }
+
+    public function forbidden() {
+        return Inertia::render('Forbidden');
+    }
 }

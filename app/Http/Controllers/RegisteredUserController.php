@@ -8,10 +8,5 @@ use Inertia\Inertia;
 
 class RegisteredUserController extends Controller
 {
-    public function profile () {
-        if (Auth::user()->role === 'user') {
-            return Inertia::render('User/Profile');
-        }
-        return Inertia::location(route('login'));
-    }
+    
 }
